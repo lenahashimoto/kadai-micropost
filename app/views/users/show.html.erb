@@ -12,11 +12,19 @@
     <%= stylesheet_link_tag  'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <style>
+      .list {
+        margin-top: 20px;
+      }
+    </style>
   </head>
 
   <body>
     <%= render 'layouts/navbar' %>
       <div class="container">
+        <% flash.each do |message_type, message| %>
+          <div class="alert alert-<%= message_type %>"><%= message %></div>
+        <% end %>
       <div class="row">
         <aside class="col-xs-4">
           <div class="panel panel-default">
@@ -27,7 +35,8 @@
               <img class="media-object img-rounded img-responsive" src="<%= gravatar_url(@user, { size: 500 }) %>" alt="">
             </div>
           </div>
-          <%= render 'relationships/follow_button', user: @user %>
+          <div><%= render 'relationships/follow_button', user: @user %></div>
+          <div class="list"><%= link_to 'お気に入り一覧を見る', likes_user_path, class: 'btn btn-info btn-block' %></div>
         </aside>
         <div class="col-xs-8">
           <ul class="nav nav-tabs nav-justified">
